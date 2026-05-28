@@ -1,219 +1,81 @@
-# 学生信息管理系统
+# 学生信息管理系统 · Python 课程练习
 
-基于 Python + PyQt5 + SQLite 开发的学生信息管理系统，提供图形化界面和命令行两种操作方式。
+## 🎯 项目概述
 
-## 功能特性
+基于 Python 开发的学生信息管理系统，提供图形界面和命令行两种操作方式。
 
-- ✅ **学生信息管理** - 添加、修改、删除学生信息
-- ✅ **模糊搜索** - 支持按学号、姓名、专业、班级搜索
-- ✅ **按专业筛选** - 快速筛选指定专业的学生
-- ✅ **CSV导入导出** - 支持批量导入/导出学生数据，兼容Excel打开
-- ✅ **数据持久化** - 使用SQLite数据库存储数据
-- ✅ **图形界面** - 基于PyQt5的友好GUI界面
-- ✅ **命令行界面** - 支持终端操作
+## 🛠️ 技术栈
 
-## 技术栈
+- **Python** - 主开发语言
+- **SQLite** - 数据库管理
+- **PyQt5** - 图形界面框架
+- **文件处理** - CSV导入导出
 
-| 技术 | 版本 | 说明 |
-|------|------|------|
-| Python | 3.8+ | 编程语言 |
-| PyQt5 | 5.15+ | 图形界面框架 |
-| SQLite | 内置 | 数据库（无需额外安装） |
-| PyInstaller | 6.0+ | 打包工具 |
+## ✨ 核心功能
 
-## 项目结构
+### 学生信息管理
+- ✅ 添加学生信息
+- ✅ 修改学生信息
+- ✅ 删除学生信息
+- ✅ 查看学生列表
+
+### 搜索与筛选
+- ✅ 模糊搜索（学号、姓名、专业、班级）
+- ✅ 按专业筛选
+
+### 数据导入导出
+- ✅ 批量导出CSV文件（支持Excel打开）
+- ✅ 批量导入CSV文件
+
+### 系统特性
+- ✅ 数据库连接管理（sqlite3）
+- ✅ 输入数据校验与异常处理
+- ✅ 模块化设计（DAO层与视图层分离）
+
+## 🏗️ 项目结构
 
 ```
 student-manage-python/
-├── app.py                 # 图形界面主程序（PyQt5）
-├── main.py                # 命令行版本主程序
-├── init_db.py             # 数据库初始化脚本
+├── app.py                 # 图形界面主程序
+├── main.py                # 命令行版本
+├── init_db.py             # 数据库初始化
 ├── config.py              # 配置文件
-├── requirements.txt       # Python依赖列表
-├── student_db.sqlite      # SQLite数据库文件（运行后自动创建）
-├── dist/                  # 打包后的可执行文件目录
-│   └── app.exe            # Windows可执行文件
-├── exports/               # CSV导出目录
-├── imports/               # CSV导入目录
-├── utils/                 # 工具类
+├── requirements.txt       # 依赖列表
+├── dao/
+│   └── StudentDAO.py      # 数据访问层
+├── utils/
 │   ├── DBUtil.py          # 数据库操作工具
-│   └── FileUtil.py        # 文件操作工具（CSV导入导出）
-├── dao/                   # 数据访问层
-│   └── StudentDAO.py      # 学生数据访问对象
-└── view/                  # 视图层
+│   └── FileUtil.py        # CSV导入导出工具
+└── view/
     └── View.py            # 命令行视图工具
 ```
 
-## 快速开始
-
-### 环境要求
-
-- Python 3.8 或更高版本
-- Windows / macOS / Linux
-
-### 安装依赖
+## 🚀 快速开始
 
 ```bash
+# 安装依赖
 pip install -r requirements.txt
-```
 
-### 运行方式
+# 初始化数据库
+python init_db.py
 
-#### 方式1：图形界面（推荐）
-
-```bash
+# 运行图形界面
 python app.py
-```
 
-#### 方式2：命令行界面
-
-```bash
+# 或运行命令行版本
 python main.py
 ```
 
-#### 方式3：可执行文件（Windows）
+## 📝 收获与体会
 
-```bash
-# 直接运行打包后的EXE文件
-dist/app.exe
-```
+通过开发这个学生信息管理系统，我收获了以下经验：
 
-### 初始化数据库
+1. **Python编程逻辑** - 熟练掌握了Python的基础语法和面向对象编程
+2. **文件操作** - 学会了CSV文件的读写操作，支持Excel格式
+3. **数据库交互** - 掌握了SQLite数据库的基本操作和连接管理
+4. **代码调试** - 提升了调试技巧和问题解决能力
+5. **系统设计** - 理解了模块化设计的重要性，实现了DAO层与视图层的分离
 
-首次运行前，建议先初始化数据库：
-
-```bash
-python init_db.py
-```
-
-## 使用说明
-
-### 图形界面操作
-
-1. **添加学生** - 点击工具栏「添加」按钮或菜单栏「编辑」→「添加学生」
-2. **修改学生** - 选中表格中的学生，点击「修改」按钮或双击学生记录
-3. **删除学生** - 选中学生后点击「删除」按钮，需要确认操作
-4. **搜索功能** - 在搜索框输入关键词后按回车或点击搜索按钮
-5. **专业筛选** - 从下拉框选择专业进行筛选
-6. **CSV导出** - 菜单栏「文件」→「导出CSV」
-7. **CSV导入** - 菜单栏「文件」→「导入CSV」
-
-### CSV文件格式
-
-导入的CSV文件需包含以下列（编码UTF-8）：
-
-| 列名 | 必填 | 说明 |
-|------|------|------|
-| 学号 | 是 | 唯一标识，不能重复 |
-| 姓名 | 是 | 学生姓名 |
-| 性别 | 是 | 男/女 |
-| 年龄 | 是 | 数字 |
-| 专业 | 是 | 专业名称 |
-| 班级 | 是 | 班级名称 |
-| 联系电话 | 否 | 可选字段 |
-| 邮箱 | 否 | 可选字段 |
-| 地址 | 否 | 可选字段 |
-
-## 打包成可执行文件
-
-```bash
-# 安装打包工具
-pip install pyinstaller
-
-# 打包成单文件
-pyinstaller --onefile --windowed app.py
-
-# 打包结果在 dist/ 目录下
-```
-
-## 配置说明
-
-配置文件 `config.py`：
-
-```python
-CSV_CONFIG = {
-    'export_path': './exports/',  # CSV导出路径
-    'import_path': './imports/',  # CSV导入路径
-    'encoding': 'utf-8-sig'       # 文件编码
-}
-
-TABLE_NAME = 'students'  # 数据库表名
-```
-
-## 项目架构
-
-### 分层设计
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                    View Layer                           │
-│  app.py (GUI)          main.py (CLI)                   │
-├─────────────────────────────────────────────────────────┤
-│                    Business Layer                       │
-│  StudentDAO.py - 学生数据访问对象                        │
-├─────────────────────────────────────────────────────────┤
-│                    Data Layer                           │
-│  DBUtil.py - 数据库操作工具                            │
-│  FileUtil.py - 文件操作工具                            │
-├─────────────────────────────────────────────────────────┤
-│                    Database                             │
-│  SQLite (student_db.sqlite)                            │
-└─────────────────────────────────────────────────────────┘
-```
-
-### 主要类说明
-
-| 类名 | 文件 | 说明 |
-|------|------|------|
-| StudentManagementApp | app.py | 图形界面主窗口 |
-| StudentDialog | app.py | 添加/修改学生对话框 |
-| StudentDAO | dao/StudentDAO.py | 学生数据访问对象 |
-| DBUtil | utils/DBUtil.py | 数据库操作工具 |
-| FileUtil | utils/FileUtil.py | CSV文件导入导出 |
-| View | view/View.py | 命令行视图工具 |
-
-## 数据库表结构
-
-```sql
-CREATE TABLE students (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    student_id TEXT NOT NULL UNIQUE,  -- 学号
-    name TEXT NOT NULL,               -- 姓名
-    gender TEXT NOT NULL,             -- 性别
-    age INTEGER NOT NULL,             -- 年龄
-    major TEXT NOT NULL,              -- 专业
-    class_name TEXT NOT NULL,         -- 班级
-    phone TEXT,                       -- 联系电话
-    email TEXT,                       -- 邮箱
-    address TEXT,                     -- 地址
-    created_at TIMESTAMP,             -- 创建时间
-    updated_at TIMESTAMP              -- 更新时间
-);
-```
-
-## 开发说明
-
-### 添加新功能
-
-1. 在 `StudentDAO.py` 中添加数据访问方法
-2. 在 `app.py` 中添加界面组件和事件处理
-3. 在 `main.py` 中添加命令行交互逻辑
-
-### 代码规范
-
-- 使用 PEP8 代码风格
-- 类名使用 PascalCase
-- 方法名和变量名使用 snake_case
-- 添加必要的注释说明
-
-## 许可证
+## 📄 许可证
 
 MIT License
-
-## 作者
-
-Student Management System Development Team
-
----
-
-**注意**：本项目为 Python 课程练习项目，用于学习和实践数据库操作、GUI开发和文件处理。
